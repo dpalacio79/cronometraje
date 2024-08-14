@@ -23,7 +23,7 @@ public class GestorDB {
 
     private Connection con;
 
-    public Connection getConnection() throws SQLException {
+    public Connection conectar() throws SQLException {
         if (con == null || con.isClosed()) {
             Properties props = new Properties();
             props.setProperty("user", USER);
@@ -34,7 +34,7 @@ public class GestorDB {
         return con;
     }
 
-    public void closeConnection() throws SQLException {
+    public void desconectar() throws SQLException {
         if (con != null && !con.isClosed()) {
             con.close();
         }
@@ -43,7 +43,7 @@ public class GestorDB {
     public Persona buscarDocumento(String docum, int tipoDNI) throws SQLException {
         Persona persona = null;
         try (
-                Connection con = getConnection(); 
+                Connection con = conectar(); 
                 PreparedStatement ps = con.prepareStatement("SELECT p.idPersona, p.nombres, p.apellido, p.calle, p.numeroCalle FROM Personas p WHERE DNI=? AND tipoDNI=?")) {
             ps.setString(1, docum);
             ps.setInt(2, tipoDNI);
@@ -60,4 +60,34 @@ public class GestorDB {
         }
         return persona;
     }
+    
+    public Persona cargarPersona(Persona p) throws SQLException{
+    
+                try {
+            conectar();
+
+            PreparedStatement ps = con.prepareStatement("INSERT INTO Personas (nombres,apellido,documento,genero, fechaNac, ciudad, categoria, equipo)"
+                    + "VALUES (?,?,?,?,?,?,?)");
+            ps.setString(1, p.getNombre());
+            ps.setString(2, p.getApellido());
+            ps.setInt(3, p.getDocumento());
+            ps.setString(4, p.getGenero());
+            ps.setString(5, p.getFechaNac());
+            ps.setString(6, p.getCiudad());
+            ps.setString(7, p.getCategoria());
+            ps.setString(8, p.getEquipo());
+
+            ps.executeUpdate();
+
+            ps.close();
+
+        } catch (SQLException exc) {
+        } finally {
+            desconectar();
+
+        }
+        return null;
+    
+    }
+    
 }

@@ -11,27 +11,47 @@ import java.util.Date;
  * @author daniel
  */
 public class Persona {
+
     private int idPersona;
     private String nombre;
     private String apellido;
     private int documento;
     private String genero;
     private String fechaNac;
+    //sin Normalizar
 
-    public Persona(int idPersona,String nombre, String apellido, int documento, String genero, String fechaNac) {
+    private String ciudad;
+    private String equipo;
+    private String categoria;
+
+    public Persona() {
+        this.idPersona = 0;
+        this.nombre = "";
+        this.apellido = "";
+        this.documento = 0;
+        this.genero = "";
+        this.fechaNac = "";
+        this.ciudad = "";
+        this.equipo = "";
+    }
+
+    public Persona(int idPersona, String nombre, String apellido, int documento, String genero, String fechaNac, String ciudad, String equipo) {
+        this.idPersona = idPersona;
         this.nombre = nombre;
         this.apellido = apellido;
         this.documento = documento;
         this.genero = genero;
         this.fechaNac = fechaNac;
+        this.ciudad = ciudad;
+        this.equipo = equipo;
     }
-    
-    public Persona() {
-        this.nombre = "";
-        this.apellido = "";
-        this.documento = 0;
-        this.genero = "Hombre";
-        this.fechaNac = "";
+
+    public int getIdPersona() {
+        return idPersona;
+    }
+
+    public void setIdPersona(int idPersona) {
+        this.idPersona = idPersona;
     }
 
     public String getNombre() {
@@ -74,5 +94,28 @@ public class Persona {
         this.fechaNac = fechaNac;
     }
 
-    
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public String getEquipo() {
+        return equipo;
+    }
+
+    public void setEquipo(String equipo) {
+        this.equipo = equipo;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
 }

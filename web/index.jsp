@@ -75,11 +75,32 @@
       const reader = new FileReader();
 
       reader.onload = () => {
-        const
-          jsonContent = reader.result;
-        const jsonData = JSON.parse(jsonContent);
+    const jsonContent = reader.result;
+    const jsonData = JSON.parse(jsonContent);
 
-        //cargar tabla
+    fetch('Personas', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsonData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Procesar   
+ la respuesta del servidor
+    })
+    .catch(error => {
+        // Manejar errores
+    });
+};
+
+
+
+
+
+
+        //////////cargar tabla
         const tabla = document.getElementById('tabla');
 
         jsonData.forEach(item => {
