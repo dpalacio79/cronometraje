@@ -46,5 +46,17 @@
     width: auto;
       height: auto;
   }
+  
+  .layout{
+     width: 100%;
 
+     display: flex;
+     gap: 16px;
+
+     justify-content: center;   
+  }
+
+  .grow1{
+      flex-grow: 1;
+  }
  
