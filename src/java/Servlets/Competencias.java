@@ -1,6 +1,6 @@
 package Servlets;
 
-import Controller.GestorDB;
+import Controller.GestorBD;
 import Model.Competencia;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -55,7 +55,7 @@ public class Competencias extends HttpServlet {
         String descrip = request.getParameter("descripcion");
         String fecha = request.getParameter("fecha");
 
-        GestorDB gestor = new GestorDB();
+        GestorBD gestor = new GestorBD();
         boolean respuesta = false;
         String errorBD = "";
 
@@ -77,13 +77,13 @@ public class Competencias extends HttpServlet {
 
         
         try {
-            Competencia compe = new Competencia(nombre, lugar, descrip, "", fecha);
+            Competencia compe = new Competencia(0, nombre, lugar, descrip, "", fecha);
 
             respuesta = gestor.cargarCompetencia(compe);
 
         } catch (SQLException | ClassNotFoundException ex) {
             errorBD = ex.toString();
-            Logger.getLogger(Competencias.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Competencia.class.getName()).log(Level.SEVERE, null, ex);
         }
 // request.setAttribute("listaVencidos", lista); para enviar cosas desde el servlet
 //

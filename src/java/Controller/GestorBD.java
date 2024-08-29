@@ -1,18 +1,20 @@
 package Controller;
 
-import Model.Competencia;
-import Model.Persona;
-import jakarta.resource.cci.ResultSet;
+import Model.Competencia;  // Only include if used
+import Model.Persona;    // Only include if used
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 /**
  *
  * @author daniel
  */
-public class GestorDB {
+public class GestorBD {
 
     private static final String CONN = "jdbc:mysql://localhost:3306/cronoDB?useTimeZone=true&serverTimezone=UTC&autoReconnect=true&useSSL=false";
     private static final String USER = "root";
@@ -96,4 +98,50 @@ public class GestorDB {
         }
     }
 
+    public boolean buscarUsuario(String usuario, String pass) throws SQLException, ClassNotFoundException {
+        boolean encontrado = false;
+        conectar();
+        String query = "SELECT id FROM UsuariosWeb WHERE nombreUsuario = ? AND password = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, usuario);
+            ps.setString(2, pass);
+
+            try (ResultSet rs = (ResultSet) ps.executeQuery()) {
+                encontrado = rs.next();
+            } catch (SQLException e) {
+                System.err.println("Error al ejecutar la consulta: " + e.getMessage());
+                e.printStackTrace();
+            }
+        
+        return encontrado;
+    }
+
+//    public ArrayList<Competencia> BuscarCompetencias() throws SQLException {
+//        ArrayList<Competencia> lista = new ArrayList<>();
+//        try {
+//            conectar();
+//            Statement st = con.createStatement();
+//            String consulta = "SELECT * FROM Competencias c";
+//            ResultSet rs = (ResultSet) st.executeQuery(consulta);
+//            while (rs.next()) {
+//                int id = rs.getInt(1);
+//                String nombre = rs.getString(2);
+//                String lugar = rs.getString(3);
+//                String descripcion = rs.getString(4);
+//                String flyer = rs.getString(5);
+//                String fecha = rs.getString(6);
+//
+//                Competencia tmp = new Competencia(id, nombre, lugar, descripcion, flyer, fecha);
+//                lista.add(tmp);
+//
+//            }
+//            rs.close();
+//
+//        } catch (ClassNotFoundException | SQLException e) {
+//        } finally {
+//            desconectar();
+//        }
+//        return lista;
+//
+//    }
 }
