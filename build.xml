@@ -68,4 +68,15 @@
     nbproject/build-impl.xml file. 
 
     -->
+ 
+    <property name="gson.jar" value="/home/daniel/NetBeansProjects/gson-2.8.2.jar"/>
+
+    <target name="compile">
+        <javac srcdir="${src.dir}" destdir="${build.dir}">
+            <classpath>
+                <pathelement location="${gson.jar}"/>
+                <pathelement path="${build.sysclasspath}"/>
+            </classpath>
+        </javac>
+    </target>
 </project>

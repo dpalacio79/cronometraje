@@ -10,9 +10,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import com.google.gson.Gson;
 
 /**
  *
@@ -53,23 +56,47 @@ public class Competencias extends HttpServlet {
         String fecha = request.getParameter("fecha");
 
         GestorDB gestor = new GestorDB();
-        Competencia comp = new Competencia(nombre, lugar, descrip, "", fecha);
-        boolean respuesta=true;
+        boolean respuesta = false;
+        String errorBD = "";
+
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
+//        StringBuilder sb = new StringBuilder();
+//
+//        String line;
+//        while ((line = reader.readLine()) != null) {
+//            sb.append(line);
+//        }
+//        String json = sb.toString();
+//
+//        // Parsear el JSON a un objeto Java
+//        Gson gson = new Gson();
+        //Competencia comp = new Competencia(nombre,lugar,descrip,"",fecha);
+
+        // Procesar los datos del objeto Java
+        //System.out.println("Nombre: " + objetoJava.getNombre());
+
+        
         try {
-            respuesta = gestor.cargarCompetencia(comp);
-        } catch (SQLException ex) {
+            Competencia compe = new Competencia(nombre, lugar, descrip, "", fecha);
+
+            respuesta = gestor.cargarCompetencia(compe);
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            errorBD = ex.toString();
             Logger.getLogger(Competencias.class.getName()).log(Level.SEVERE, null, ex);
         }
 // request.setAttribute("listaVencidos", lista); para enviar cosas desde el servlet
 //
-        
-        
+
         if (respuesta) {
+            request.setAttribute("alta", "OK");
+        }
+        else{
+            request.setAttribute("alta", errorBD);
+            
+        }
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/altaCompetencia.jsp");
             rd.forward(request, response);
-        }
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
-        rd.forward(request, response);
     }
 
 }
