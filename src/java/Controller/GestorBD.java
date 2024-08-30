@@ -144,4 +144,46 @@ public class GestorBD {
 //        return lista;
 //
 //    }
+    
+        public ArrayList<Competencia> BuscarCompetencias() throws SQLException, ClassNotFoundException {
+        ArrayList<Competencia> lista = new ArrayList<>();
+        String consulta = "SELECT * FROM Competencias c";
+
+        try (Connection connection = conectar()) {
+            PreparedStatement ps = connection.prepareStatement(consulta);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                // Create a new object instance based on the object class
+                
+
+                // Extract data from ResultSet based on your object's properties (replace with actual logic)
+                int id = rs.getInt("idCompetencia");               // Replace "id" with actual column name
+                String nombre = rs.getString("nombre"); // Replace "nombre" with actual column name
+                
+                // Set object properties using reflection (optional)
+                // You'll need to modify this based on your object's properties and access methods
+                // java.lang.reflect.Field nombreField = objectClass.getField("nombre");
+                // nombreField.set(object, nombre);
+                // java.lang.reflect.Field idField = objectClass.getField("id");
+                // idField.set(object, id);
+
+                // Populate object properties based on your needs (replace with your logic)
+                /*
+                if (objectClass.equals(Competencia.class)) {
+                    ((Competencia) object).setNombre(nombre);
+                    ((Competencia) object).setId(id);
+                } else {
+                    // Handle other object types
+                }
+                */
+                
+                Competencia compe = new Competencia(id,nombre,"","","","2018-08-26");
+
+                lista.add(compe);
+            }
+        }
+
+        return lista;
+    }
 }

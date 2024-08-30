@@ -18,6 +18,7 @@ public class Competencia {
     private String fecha;
 
     public Competencia(int id, String nombre, String lugar, String descripcion, String flyer, String fecha) {
+        this.id= id;
         this.nombre = nombre;
         this.lugar = lugar;
         this.descripcion = descripcion;
@@ -25,7 +26,7 @@ public class Competencia {
         this.fecha = fecha;
     }
 
-    public Competencia(String nombre) {
+    public Competencia() {
         this.id = 0;
         this.nombre = "";
         this.lugar = "";
