@@ -10,13 +10,15 @@ package Model;
  */
 public class Competencia {
 
+    private int id;
     private String nombre;
     private String lugar;
     private String descripcion;
     private String flyer;
     private String fecha;
 
-    public Competencia(String nombre, String lugar, String descripcion, String flyer, String fecha) {
+    public Competencia(int id, String nombre, String lugar, String descripcion, String flyer, String fecha) {
+        this.id= id;
         this.nombre = nombre;
         this.lugar = lugar;
         this.descripcion = descripcion;
@@ -24,12 +26,21 @@ public class Competencia {
         this.fecha = fecha;
     }
 
-    public Competencia(String nombre) {
+    public Competencia() {
+        this.id = 0;
         this.nombre = "";
         this.lugar = "";
         this.descripcion = "";
         this.flyer = "";
         this.fecha = "";
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {
